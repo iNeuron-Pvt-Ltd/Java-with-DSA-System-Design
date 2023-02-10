@@ -1,0 +1,3 @@
+Introduction to 1D Array, Palindrome Problem
+Reverse in an array, Missing Number
+Duplicate Elements Finding
