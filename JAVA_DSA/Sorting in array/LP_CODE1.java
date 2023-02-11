@@ -1,33 +1,40 @@
-#include <bits/stdc++.h>
-using namespace std;
+import java.io.*;
+import java.util.*;
+public class Sort {
+    // 0 based indexing used
+    public static void bubbleSort(int[] a) {
+        int n = a.length;
 
-// 0 based indexing used 
-void bubbleSort(vector<int>&a){
-  int n = a.size();
-  for (int i = 0; i < n - 1; i++){
-    // Last i elements are already at correct sorted positions
-    // so no need to check them
-    for (int j = 0; j < n - i - 1; j++){
-      if (a[j] > a[j + 1]){
-        swap(a[j], a[j + 1]);
-      }
+        for (int i = 0; i < n; i++) {
+            boolean flag = false;
+
+            for (int j = 0; j < n - i - 1; j++) {
+                if (a[j] > a[j + 1]) {
+                    flag = true;
+                    // swap the values of a[j] and a[j+1]
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+            // No Swapping happened, array is sorted
+            if (!flag) {
+                return;
+            }
+        }
     }
-  }
-}
- 
-// Driver Code
-int main()
-{ int n;
- cout<<"Enter the size of array"<<endl;
- cin>>n;
- vector<int>v(n);
- cout<<"Enter the elements"<<endl;
- for(int i=0;i<n;i++){
-     cin>>v[i];
- }
- bubbleSort(v);
- cout<<"Array after sorting"<<endl;
- for(int i=0;i<n;i++){
-    cout<<v[i]<<" "; 
- }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the size of array");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        System.out.println("Enter the elements of array");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        bubbleSort(arr);
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
 }
