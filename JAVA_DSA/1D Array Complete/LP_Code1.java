@@ -1,4 +1,4 @@
-public class CheckPalindrome {
+public class Main {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 2, 1};
         int n = 5;
