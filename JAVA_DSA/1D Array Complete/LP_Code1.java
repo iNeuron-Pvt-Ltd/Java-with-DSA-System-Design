@@ -7,6 +7,7 @@ public class Main {
             if (arr[i] != arr[n - i - 1]) {
                 flag = 1;
                 System.out.println("The given array is not a palindrome.");
+                break;
             }
         }
 
