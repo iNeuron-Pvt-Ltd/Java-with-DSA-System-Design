@@ -5,7 +5,7 @@ public class CODE12 {
         for (int val : arr) {
             max = Math.max(max, val);
         }
-        System.out.print("Largest in given array is " + max);
+        System.out.print(max);
 
     }
 }
