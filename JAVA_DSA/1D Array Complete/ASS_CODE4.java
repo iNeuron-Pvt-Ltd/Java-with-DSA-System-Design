@@ -23,8 +23,7 @@ public class CODE13 {
             System.out.printf("There is no second " +
                     "largest element\n");
         else
-            System.out.printf("The second largest " +
-                    "element is %d\n", second);
+            System.out.printf("%d\n", second);
     }
 
 }
