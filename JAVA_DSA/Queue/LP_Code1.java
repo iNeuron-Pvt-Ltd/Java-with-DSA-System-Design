@@ -14,8 +14,8 @@ public class Main {
 		System.out.println("Elements of queue " + q);
 
 		// To remove the head of queue.
-		int removedele = q.remove();
-		System.out.println("removed element-" + removedele);
+		int removedElement = q.remove();
+		System.out.println("removed element-" + removedElement);
 
 		System.out.println(q);
 
