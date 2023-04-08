@@ -6,7 +6,7 @@ class Main {
 	public static void main(String[] args){
 
 		// Default initialization of Stack
-		Stack<Integer>stack1 = new Stack();
+		Stack<Integer> stack1 = new Stack();
 
 		// pushing the elements
 		stack1.push(1);
