@@ -1,4 +1,3 @@
-import java.util.concurrent.atomic.AtomicInteger;
  
 // A class to store a binary tree node
 class Node
@@ -11,13 +10,15 @@ class Node
     }
 }
  
-class Main
+class Test
 {
     // Function to find the diameter of the binary tree. Note that the
     // function returns the height of the subtree rooted at a given node,
     // and the diameter is updated within the function as it is passed by
     // reference using the `AtomicInteger` class.
-    public static int getDiameter(Node root, AtomicInteger diameter)
+
+    public static int Maxdiameter = 0;
+    public static int getDiameter(Node root, int diameter)
     {
         // base case: tree is empty
         if (root == null) {
@@ -34,7 +35,7 @@ class Main
         // update maximum diameter (note that diameter "excluding" the current
         // node in the subtree rooted at the current node is already updated
         // since we are doing postorder traversal)
-        diameter.set(Math.max(diameter.get(), max_diameter));
+        Maxdiameter = (Math.max(Maxdiameter, max_diameter));
  
         // it is important to return the height of the subtree rooted at the
         // current node
@@ -43,10 +44,10 @@ class Main
  
     public static int getDiameter(Node root)
     {
-        AtomicInteger diameter = new AtomicInteger(0);
+        int diameter = 0;
         getDiameter(root, diameter);
  
-        return diameter.get();
+        return Maxdiameter;
     }
  
     public static void main(String[] args)
