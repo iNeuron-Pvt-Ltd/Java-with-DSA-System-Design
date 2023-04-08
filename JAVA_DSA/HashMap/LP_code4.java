@@ -14,11 +14,8 @@ public class HashMapClass {
         HashMap<Character, Integer> hm = new HashMap<>();
 
         for(int i=0;i<s.length(); i++ ){
-            if(hm.containsKey(s.charAt(i))) {
-                hm.put(s.charAt(i), hm.get(s.charAt(i))+1);
-            }
-            else
-                hm.put(s.charAt(i), 1);
+            int frequencyOfElement = hm.getOrDefault(s.charAt(i), 0);
+            hm.put(s.charAt(i), frequencyOfElement+1);
         }       
 
         //Now we will check first character whose frequency is 1
