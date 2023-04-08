@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Main {
+public class Test {
     public static String mergeStrings(String a, String b){
       String answer = "";
       if(a.length() == 0){
@@ -12,7 +12,7 @@ public class Main {
       }
       answer += a.substring(0, 1);
       answer += b.substring(0, 1);
-      answer += mergeStrings(a.substring(1, a.length()), b.substring(1, b.length()));
+      answer += mergeStrings(a.substring(1), b.substring(1));
       return answer;
     }
     
