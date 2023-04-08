@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.Map;
 import java.io.*;
   
-public class HashMapClass {
+public class Test {
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
@@ -35,14 +35,9 @@ public class HashMapClass {
 
         for(int i=0; i<n ;i++){
 
-            //If the current element is equal to target.
-            if(array[i] == target && hm.containsKey(0)){
-                answer[0] = i;
-                answer[1] = hm.get(0);
-                break;
-            }
+        
             //if we check the difference is present in map
-            else if(hm.containsKey(target - array[i])){
+            if(hm.containsKey(target - array[i])){
                 if(hm.get(target - array[i]) > i){
                     //THis case is to check for same elements case. array[i] == target - array[i]
                     answer[0] = i;
