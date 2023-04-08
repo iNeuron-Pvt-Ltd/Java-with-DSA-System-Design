@@ -44,8 +44,13 @@
          root.left.left = new Node(4);
          root.right.right = new Node(4);
          root.right.left = new Node(5);
-
-         System.out.print("The given tree is Symmetric: " + checkSymmetric(root.left, root.right));
+         
+         if (root==null) {
+             System.out.print("The given tree is Symmetric: ");
+         }
+         else {
+             System.out.print("The given tree is Symmetric: " + checkSymmetric(root.left, root.right));
+         }
 
 
      }
