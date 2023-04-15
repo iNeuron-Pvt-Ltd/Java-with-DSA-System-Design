@@ -2,13 +2,13 @@ import java.util.*;
 import java.util.Scanner;
 public class Main{
     
-   public static boolean helper(int []arr , int []vis , int si , int curr_sum , int target , int k)
+   public static boolean helper(int []arr , int []vis , int startIndex , int curr_sum , int target , int k)
     {
         if(k==1)return true;
         if(curr_sum>target) return false;
         if(curr_sum==target)return helper(arr,vis,0,0,target,k-1);
 
-        for(int i=si;i<arr.length;i++){
+        for(int i=startIndex;i<arr.length;i++){
             if(vis[i]==-1){
                 vis[i]=1;
                 if(helper(arr,vis,i+1,curr_sum+arr[i],target,k) == true)return true;
