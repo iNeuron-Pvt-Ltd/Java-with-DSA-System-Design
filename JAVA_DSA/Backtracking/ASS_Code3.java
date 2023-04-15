@@ -7,7 +7,7 @@ public class Main{
         boolean[] used = new boolean[nums.length];
         List<Integer> list = new ArrayList<Integer>();
         Arrays.sort(nums);
-        go(nums, used, list, result);
+        findAllPermutationso(nums, used, list, result);
         
         for(List<Integer> li : result){
             for(Integer item : li){
@@ -17,7 +17,7 @@ public class Main{
         }
     }
 
-    public static void go(int[] nums, boolean[] used, List<Integer> list, List<List<Integer>> res){
+    public static void findAllPermutations(int[] nums, boolean[] used, List<Integer> list, List<List<Integer>> res){
         if(list.size()==nums.length){
             res.add(new ArrayList<Integer>(list));
             return;
@@ -27,7 +27,7 @@ public class Main{
             if(i>0 &&nums[i-1]==nums[i] && !used[i-1]) continue;
             used[i]=true;
             list.add(nums[i]);
-            go(nums,used,list,res);
+            findAllPermutationso(nums,used,list,res);
             used[i]=false;
             list.remove(list.size()-1);
         }
