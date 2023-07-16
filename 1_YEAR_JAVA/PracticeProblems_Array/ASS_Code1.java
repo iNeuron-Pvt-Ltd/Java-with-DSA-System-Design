@@ -1,29 +1,11 @@
-import java.util.Scanner;
-public class InsertionSort {
+public class CODE14 {
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-        System.out.println("Enter the length of array");
-        int n = scn.nextInt();
-        int[] arr = new int[n];
-        System.out.println("Enter the elements of array");
-        for (int i = 0; i < n; i++) {
-            arr[i] = scn.nextInt();
-        }
-        System.out.println("Enter the index");
-        int k = scn.nextInt();
-        for (int i = 1; i < n; i++) {
-            int j = i;
-            // Insert a[i] into sorted left part 0..i-1
-            while (j > 0 && arr[j] < arr[j - 1]) {
-                // Swap a[j] and a[j-1]
-                int temp = arr[j];
-                arr[j] = arr[j - 1];
-                arr[j - 1] = temp;
-                // Decrement j by 1
-                j--;
+        int[] arr = { 1, 1, 3, 4, 2, 3, 5, 7, 1 };
+        for (int i = 1; i < arr.length - 1; i++) {
+            if (arr[i - 1] < arr[i] && arr[i] > arr[i + 1]) {
+                System.out.print(arr[i]);
+                break;
             }
-
         }
-        System.out.print(arr[k - 1]);
     }
 }
