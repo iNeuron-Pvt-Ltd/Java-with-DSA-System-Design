@@ -1,57 +1,26 @@
-class RadixSort {  
-  
-    int getMax(int a[], int n) {  
-       int max = a[0];  
-       for(int i = 1; i<n; i++) {  
-          if(a[i] > max) max = a[i];  
+import java.util.Scanner;  
+public class Main {  
+    public static void main(String[] args) {  
+        double number = 0, sqrt=0;  
+        Scanner sc = new Scanner(System.in);  
+        System.out.print("Enter a number: ");  
+        number = sc.nextDouble();  
+        sqrt = squareRoot(number);  
+        System.out.println("The square root of "+ number + " is " + sqrt);  
+    }  
+    private static double squareRoot(double number) {  
+        int i = 1;  
+        while(true) {  
+            if(i*i == number) return i;  
+            else if(i*i > number) return decimalSqrt(number,i-1,i);  
+            i++;  
         }  
-       return max;
     }  
-      
-    void countingSort(int a[], int n, int place) {  
-       int[] output = new int[n+1];  
-       int[] count = new int[10];  
-      
-      // Calculate count of elements  
-      for (int i = 0; i < n; i++)  
-        count[(a[i] / place) % 10]++;  
-          
-      // Calculate cumulative frequency  
-      for (int i = 1; i < 10; i++)  
-        count[i] += count[i - 1];  
-      
-      // Place the elements in sorted order  
-      for (int i = n - 1; i >= 0; i--) {  
-        output[count[(a[i] / place) % 10] - 1] = a[i];  
-        count[(a[i] / place) % 10]--;  
-      }  
-      
-      for (int i = 0; i < n; i++)  
-        a[i] = output[i];  
-    }  
-      
-    // function to implement radix sort  
-    void radixsort(int a[], int n) {  
-        // get maximum element from array  
-        int max = getMax(a, n);  
-        
-        // Apply counting sort to sort elements based on place value  
-        for (int place = 1; max / place > 0; place *= 10)  
-        countingSort(a, n, place);  
-    }  
-      
-    public static void main(String args[]) {  
-        int a[] = {121, 274, 360, 51, 43, 789, 14, 923, 32};  
-        int n = a.length;  
-        RadixSort r1 = new RadixSort();  
-        System.out.print("Before sorting array elements are - \n");  
-        for (int i = 0; i < n; ++i)   
-            System.out.print(a[i] + " ");
-            
-        r1.radixsort(a, n);  
-        System.out.print("\n\nAfter applying Radix sort, the array elements are - \n"); 
-        
-        for (int i = 0; i < n; ++i)   
-            System.out.print(a[i] + " "); 
+    private static double decimalSqrt(double number, double i, double j) {  
+        double midvalue = (i+j)/2;  
+        double square = midvalue * midvalue;  
+        if(square==number||Math.abs(square-number)<0.0000001) return midvalue;   
+        else if(square>number) return decimalSqrt(number, i, midvalue);  
+        else return decimalSqrt(number, midvalue, j);  
     }  
 }  
