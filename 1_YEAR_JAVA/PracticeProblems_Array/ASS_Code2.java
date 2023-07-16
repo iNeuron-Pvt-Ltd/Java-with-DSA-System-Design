@@ -1,40 +1,45 @@
 import java.io.*;
 import java.util.*;
-public class Sort {
-    // 0 based indexing used
-    public static void bubbleSort(int[] a) {
-        int n = a.length;
-
-        for (int i = 0; i < n; i++) {
-            boolean flag = false;
-
-            for (int j = 0; j < n - i - 1; j++) {
-                if (a[j] < a[j + 1]) {
-                    flag = true;
-                    // swap the values of a[j] and a[j+1]
-                    int temp = a[j];
-                    a[j] = a[j + 1];
-                    a[j + 1] = temp;
-                }
-            }
-            // No Swapping happened, array is sorted
-            if (!flag) {
-                return;
-            }
-        }
+public class Main{ 
+  
+   public static int lastOccurrence(int[] nums, int low, int high  , int target){
+      int answer = -1;
+       while(low <= high){
+           int mid = low + (high  - low)/2;
+           
+           if(nums[mid] == target){
+               answer = mid;
+               low = mid + 1;  //if you found the target or if target is greater than the current element, to find last occurrence move to right half of the array
+           }
+           else if(nums[mid] > target){
+               high  = mid - 1; 
+           }
+           else low = mid + 1;
+       }
+       return answer;
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the size of array");
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        System.out.println("Enter the elements of array");
-        for (int i = 0; i < n; i++) {
+
+    public static void main(String args[]){
+    
+        int m;
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the number of elements you want to add : ");
+        m=sc.nextInt();      
+        
+        int []arr = new int[m];
+        
+        System.out.print("Enter the elements of the array: ");
+        
+        for(int i=0;i<m;i++){
             arr[i] = sc.nextInt();
         }
-        bubbleSort(arr);
-        for (int i = 0; i < n; i++) {
-            System.out.print(arr[i] + " ");
-        }
-    }
+        
+        System.out.print("Enter the target : ");
+        
+        int target;
+        Scanner s1 = new Scanner(System.in);
+        target = s1.nextInt(); 
+        
+        System.out.println("The last occurrence of target is at index : " + lastOccurrence(arr , 0 , m - 1 , target));
+    }     
 }
