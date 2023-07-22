@@ -1,113 +1,162 @@
-import java.util.Random;
 
-class Node {
-    int value;
-    Node[] next;
+class SkipListImpl {
 
-    public Node(int value, int level) {
-        this.value = value;
-        this.next = new Node[level + 1];
+    // Class to implement node
+    static class Node {
+        int key;
+
+        // Array to hold pointers to node of different level
+        Node forward[];
+
+        Node(int key, int level)
+        {
+            this.key = key;
+
+            // Allocate memory to forward
+            forward = new Node[level + 1];
+        }
+    };
+
+    // Class for Skip list
+    static class SkipList {
+        // Maximum level for this skip list
+        int MAXLVL;
+
+        // P is the fraction of the nodes with level
+        // i pointers also having level i+1 pointers
+        float P;
+
+        // current level of skip list
+        int level;
+
+        // pointer to header node
+        Node header;
+
+        SkipList(int MAXLVL, float P)
+        {
+            this.MAXLVL = MAXLVL;
+            this.P = P;
+            level = 0;
+
+            // create header node and initialize key to -1
+            header = new Node(-1, MAXLVL);
+        }
+
+        int randomLevel()
+        {
+            float r = (float)Math.random();
+            int lvl = 0;
+            while (r < P && lvl < MAXLVL) {
+                lvl++;
+                r = (float)Math.random();
+            }
+            return lvl;
+        }
+
+        Node createNode(int key, int level)
+        {
+            Node n = new Node(key, level);
+            return n;
+        }
+
+        // Insert given key in skip list
+
+        void insertElement(int key)
+        {
+            Node current = header;
+
+            // create update array and initialize it
+            Node update[] = new Node[MAXLVL + 1];
+
+            /* start from highest level of skip list
+                    move the current pointer forward while
+            key is greater than key of node next to
+            current Otherwise inserted current in update
+            and move one level down and continue search
+            */
+            for (int i = level; i >= 0; i--) {
+                while (current.forward[i] != null
+                    && current.forward[i].key < key)
+                    current = current.forward[i];
+                update[i] = current;
+            }
+
+            /* reached level 0 and forward pointer to
+            right, which is desired position to
+            insert key.
+            */
+            current = current.forward[0];
+
+            /* if current is NULL that means we have reached
+            to end of the level or current's key is not
+            equal to key to insert that means we have to
+            insert node between update[0] and current node
+        */
+            if (current == null || current.key != key) {
+                // Generate a random level for node
+                int rlevel = randomLevel();
+
+                // If random level is greater than list's
+                // current level (node with highest level
+                // inserted in list so far), initialize
+                // update value with pointer to header for
+                // further use
+                if (rlevel > level) {
+                    for (int i = level + 1; i < rlevel + 1;
+                        i++)
+                        update[i] = header;
+
+                    // Update the list current level
+                    level = rlevel;
+                }
+
+                // create new node with random level
+                // generated
+                Node n = createNode(key, rlevel);
+
+                // insert node by rearranging pointers
+                for (int i = 0; i <= rlevel; i++) {
+                    n.forward[i] = update[i].forward[i];
+                    update[i].forward[i] = n;
+                }
+                System.out.println(
+                    "Successfully Inserted key " + key);
+            }
+        }
+
+        // Display skip list level wise
+        void displayList()
+        {
+            System.out.println("\n*****Skip List*****");
+            for (int i = 0; i <= level; i++) {
+                Node node = header.forward[i];
+                System.out.print("Level " + i + ": ");
+                while (node != null) {
+                    System.out.print(node.key + " ");
+                    node = node.forward[i];
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    // Driver to test above code
+    public static void main(String[] args)
+    {
+        // create SkipList object with MAXLVL and P
+        SkipList lst = new SkipList(3, 0.5f);
+
+        lst.insertElement(3);
+        lst.insertElement(6);
+        lst.insertElement(7);
+        lst.insertElement(9);
+        lst.insertElement(12);
+        lst.insertElement(19);
+        lst.insertElement(17);
+        lst.insertElement(26);
+        lst.insertElement(21);
+        lst.insertElement(25);
+        lst.displayList();
     }
 }
 
-public class SkipList {
-    private static final int MAX_LEVEL = 16; // Maximum number of levels in the skip list
-    private static final double SKIP_PROBABILITY = 0.5; // Probability of promoting an element to a higher level
-
-    private Node head;
-    private int level;
-
-    public SkipList() {
-        this.head = new Node(Integer.MIN_VALUE, MAX_LEVEL);
-        this.level = 0;
-    }
-
-    // Coin flip function to determine whether an element should be promoted to a higher level
-    private boolean shouldPromote() {
-        return Math.random() < SKIP_PROBABILITY;
-    }
-
-    public boolean search(int target) {
-        Node current = head;
-
-        // Start from the top layer and move down through the levels
-        for (int i = level; i >= 0; i--) {
-            // Move to the right in the current layer until the value is greater or equal to the target
-            while (current.next[i] != null && current.next[i].value < target) {
-                current = current.next[i];
-            }
-
-            // If the current element's value is equal to the target, we found the element
-            if (current.next[i] != null && current.next[i].value == target) {
-                return true;
-            }
-        }
-
-        // If the target is not found at any level, it does not exist in the skip list
-        return false;
-    }
-
-    public void insert(int value) {
-        int newLevel = 0;
-        while (shouldPromote() && newLevel < MAX_LEVEL) {
-            newLevel++;
-        }
-
-        // If the new level is greater than the current level, update the head node and level
-        if (newLevel > level) {
-            for (int i = level + 1; i <= newLevel; i++) {
-                head.next[i] = null;
-            }
-            level = newLevel;
-        }
-
-        Node newNode = new Node(value, newLevel);
-        Node current = head;
-
-        // Start from the top layer and move down through the levels
-        for (int i = level; i >= 0; i--) {
-            // Move to the right in the current layer until the value is greater or equal to the target
-            while (current.next[i] != null && current.next[i].value < value) {
-                current = current.next[i];
-            }
-
-            // Insert the new node in this level
-            newNode.next[i] = current.next[i];
-            current.next[i] = newNode;
-        }
-    }
-
-    // Helper method to print the skip list
-    public void printSkipList() {
-        for (int i = level; i >= 0; i--) {
-            Node current = head.next[i];
-            System.out.print("Level " + i + ": ");
-            while (current != null) {
-                System.out.print(current.value + " ");
-                current = current.next[i];
-            }
-            System.out.println();
-        }
-    }
-
-    public static void main(String[] args) {
-        SkipList skipList = new SkipList();
-        Random random = new Random();
-
-        // Insert 10 random elements into the skip list
-        for (int i = 0; i < 10; i++) {
-            int value = random.nextInt(100);
-            skipList.insert(value);
-            System.out.println("Inserted: " + value);
-        }
-
-        skipList.printSkipList();
-
-        // Perform a search for some values
-        int[] searchValues = { 15, 30, 50 };
-        for (int value : searchValues) {
-            boolean found = skipList.search(value);
-            System.out.println(value + " Found: " + found);
-        }
-    }
-}
