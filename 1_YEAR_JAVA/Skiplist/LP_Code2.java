@@ -1,4 +1,3 @@
-
 class SkipListImpl {
 
     // Class to implement node
@@ -8,8 +7,7 @@ class SkipListImpl {
         // Array to hold pointers to node of different level
         Node forward[];
 
-        Node(int key, int level)
-        {
+        Node(int key, int level) {
             this.key = key;
 
             // Allocate memory to forward
@@ -32,8 +30,7 @@ class SkipListImpl {
         // pointer to header node
         Node header;
 
-        SkipList(int MAXLVL, float P)
-        {
+        SkipList(int MAXLVL, float P) {
             this.MAXLVL = MAXLVL;
             this.P = P;
             level = 0;
@@ -42,27 +39,24 @@ class SkipListImpl {
             header = new Node(-1, MAXLVL);
         }
 
-        int randomLevel()
-        {
-            float r = (float)Math.random();
+        int randomLevel() {
+            float r = (float) Math.random();
             int lvl = 0;
             while (r < P && lvl < MAXLVL) {
                 lvl++;
-                r = (float)Math.random();
+                r = (float) Math.random();
             }
             return lvl;
         }
 
-        Node createNode(int key, int level)
-        {
+        Node createNode(int key, int level) {
             Node n = new Node(key, level);
             return n;
         }
 
         // Insert given key in skip list
 
-        void insertElement(int key)
-        {
+        void insertElement(int key) {
             Node current = header;
 
             // create update array and initialize it
@@ -75,8 +69,8 @@ class SkipListImpl {
             and move one level down and continue search
             */
             for (int i = level; i >= 0; i--) {
-                while (current.forward[i] != null
-                    && current.forward[i].key < key)
+                while (current.forward[i] != null &&
+                    current.forward[i].key < key)
                     current = current.forward[i];
                 update[i] = current;
             }
@@ -102,8 +96,7 @@ class SkipListImpl {
                 // update value with pointer to header for
                 // further use
                 if (rlevel > level) {
-                    for (int i = level + 1; i < rlevel + 1;
-                        i++)
+                    for (int i = level + 1; i < rlevel + 1; i++)
                         update[i] = header;
 
                     // Update the list current level
@@ -125,8 +118,7 @@ class SkipListImpl {
         }
 
         // Display skip list level wise
-        void displayList()
-        {
+        void displayList() {
             System.out.println("\n*****Skip List*****");
             for (int i = 0; i <= level; i++) {
                 Node node = header.forward[i];
@@ -141,10 +133,9 @@ class SkipListImpl {
     }
 
     // Driver to test above code
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // create SkipList object with MAXLVL and P
-        SkipList lst = new SkipList(3, 0.5f);
+        SkipList lst = new SkipList(3, 0.5 f);
 
         lst.insertElement(3);
         lst.insertElement(6);
@@ -159,4 +150,3 @@ class SkipListImpl {
         lst.displayList();
     }
 }
-
