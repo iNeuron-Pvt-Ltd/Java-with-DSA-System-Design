@@ -9,7 +9,7 @@ public class InsertionSort {
         for (int i = 0; i < n; i++) {
             arr[i] = scn.nextInt();
         }
-        System.out.println("Enter the index");
+        System.out.println("Enter the kth element");
         int k = scn.nextInt();
         for (int i = 1; i < n; i++) {
             int j = i;
