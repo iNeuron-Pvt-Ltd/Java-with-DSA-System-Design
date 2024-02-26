@@ -1,2 +1,2 @@
 # Java-with-DSA-System-Design
-This repo contains the code for Java with DSA &amp; System Design Batch.
+This repo contains the code for Java with DSA &amp; System Design Batch for any batch.
